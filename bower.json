@@ -1,0 +1,13 @@
+{
+  "name": "website-skeleton",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Retzu/website-skeleton",
+  "license": "GNU GPLv3",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
