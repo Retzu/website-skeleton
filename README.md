@@ -16,8 +16,8 @@ To install new front-end libraries just type ```bower install xyz```. Restart gu
 
 ##Why SASS but no CoffeeScript/LiveScript?
 I used to like [CoffeeScript](http://coffeescript.org/), but not anymore.
-- You cannot declare **real** functions, only function variables.
-- Every function automatically returns its last expressionion *unless* you write ```return```. Then a return statement is omitted completely in the resulting JS. This is weird.
+- You cannot declare **real** functions, only function variables. For example: if you want to use addEventListener you have to declare the function before calling addEventListener. If you declare it after, your function variable will be undefined at the time addEventListener is called. [See this example](http://codepen.io/Retzudo/pen/EgoJw?editors=001)
+- Every function automatically returns its last expression *unless* you write ```return```. Then a return statement is omitted completely in the resulting JS. This is weird.
 
 [LiveScript](http://livescript.net/) is--for me personally--just a bit to much to "just" do some JavaScript.
 
