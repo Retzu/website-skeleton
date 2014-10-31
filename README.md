@@ -9,7 +9,7 @@ This is just a simple, extendable skeleton for creating a brand new website. It 
 4. ```sudo npm install -g gulp bower``` if you don't have them already
 3. ```bower install```
 
-Now you can run ```gulp server```, edit your files and watch livereload to its magic.
+Now you can run ```gulp server```, edit your files and watch livereload do its magic.
 
 ##Quick, I need jQuery!
 To install new front-end libraries just type ```bower install xyz```. Restart gulp and you're good to go. All libraries are automatically concatenated into libs.js in the dist folder which is included in index.html
