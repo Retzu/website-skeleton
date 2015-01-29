@@ -33,9 +33,13 @@ gulp.task('html', function() {
 });
 
 gulp.task('bower-files', function(){
-    return gulp.src(mainBowerFiles())
-        .pipe(concat('libs.js'))
-        .pipe(gulp.dest('dist/js/'));
+    var fs = require('fs');
+    bowerDir = 'bower_components';
+    if (fs.exists(bowerDir)) {
+      return gulp.src(mainBowerFiles())
+      .pipe(concat('libs.js'))
+      .pipe(gulp.dest('dist/js/'));
+    }
 });
 
 gulp.task('watch', function() {
