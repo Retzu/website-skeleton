@@ -17,8 +17,8 @@ Files
 ### `index.html`
 This is just the basic structure for HTML5. If you don't want to use bower at all you can safely remove the script tag that includes `libs.js`.
 
-### `src/js` and `src/scss`
-Here you can put your JavaScripts. You can also use sub-directories to keep things organized. All files will be concatenated(, compiled) and copied to `dist/`.
+### `src/js/` and `src/scss/`
+Here you can put your JavaScripts and SCSS. You can also use sub-directories to keep things organized. All files will be concatenated(, compiled) and copied to `dist/js/` or `dist/css/`.
 
 Quick, I need jQuery!
 ---------------------
