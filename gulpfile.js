@@ -35,7 +35,7 @@ gulp.task('html', function() {
 gulp.task('bower-files', function(){
     var fs = require('fs');
     bowerDir = 'bower_components';
-    if (fs.exists(bowerDir)) {
+    if (fs.existsSync(bowerDir)) {
       return gulp.src(mainBowerFiles())
       .pipe(concat('libs.js'))
       .pipe(gulp.dest('dist/js/'));
