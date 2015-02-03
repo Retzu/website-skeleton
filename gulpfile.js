@@ -49,6 +49,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('server', function() {
+    gulp.start('bower-files');
     gulp.start('js');
     gulp.start('scss');
     gulp.start('html');
