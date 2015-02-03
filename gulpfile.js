@@ -7,7 +7,7 @@ var connect = require('gulp-connect');
 var sass = require('gulp-sass');
 
 gulp.task('js', function() {
-    gulp.src('src/js/*.js')
+    gulp.src('src/js/**/*.js')
         .pipe(concat('main.js'))
         .pipe(uglify().on('error', function(e) {
                 console.log('Error compiling JavaScript:')
@@ -19,7 +19,7 @@ gulp.task('js', function() {
 });
 
 gulp.task('scss', function() {
-    gulp.src('src/scss/*.scss')
+    gulp.src(['src/scss/**/*.scss', 'src/scss/**/*.css'])
         .pipe(sass())
         .pipe(concat('main.css'))
         .pipe(gulp.dest('dist/css/'))
