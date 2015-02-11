@@ -5,6 +5,7 @@ var uglify = require('gulp-uglify');
 var watch = require('gulp-watch');
 var connect = require('gulp-connect');
 var sass = require('gulp-sass');
+var minifyCss = require('gulp-minify-css');
 
 gulp.task('js', function() {
     gulp.src('src/js/**/*.js')
@@ -21,6 +22,7 @@ gulp.task('js', function() {
 gulp.task('scss', function() {
     gulp.src(['src/scss/**/*.scss', 'src/scss/**/*.css'])
         .pipe(sass())
+        .pipe(minifyCss())
         .pipe(concat('main.css'))
         .pipe(gulp.dest('dist/css/'))
         .pipe(connect.reload());
