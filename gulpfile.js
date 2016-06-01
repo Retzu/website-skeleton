@@ -1,65 +1,39 @@
+var babelify = require('babelify');
+var browserify = require('browserify');
+var browserSync = require('browser-sync');
 var gulp = require('gulp');
-var mainBowerFiles = require('main-bower-files');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var watch = require('gulp-watch');
-var connect = require('gulp-connect');
+var gutil = require('gulp-util');
 var sass = require('gulp-sass');
-var minifyCss = require('gulp-minify-css');
+var source = require('vinyl-source-stream');
 
-gulp.task('js', function() {
-    gulp.src('src/js/**/*.js')
-        .pipe(concat('main.js'))
-        .pipe(uglify().on('error', function(e) {
-                console.log('Error compiling JavaScript:')
-                console.log('\x07',e.message);
-                return this.end();
-            }))
-        .pipe(gulp.dest('dist/js/'))
-        .pipe(connect.reload());
+gulp.task('css', function () {
+    return gulp.src('./src/css/**/*.scss')
+        .pipe(sass().on('error', gutil.log))
+        .pipe(gulp.dest('./dist/css/'))
+        .pipe(browserSync.stream());
 });
 
-gulp.task('scss', function() {
-    gulp.src(['src/scss/**/*.scss', 'src/scss/**/*.css'])
-        .pipe(sass())
-        .pipe(minifyCss())
-        .pipe(concat('main.css'))
-        .pipe(gulp.dest('dist/css/'))
-        .pipe(connect.reload());
+gulp.task('js', function () {
+    return browserify('./src/js/main.js', {debug: true})
+        .transform('babelify', {
+            presets: ['es2015'],
+            sourceRoot: './src/js/'
+        })
+        .bundle()
+        .on('error', gutil.log)
+        .pipe(source('main.js'))
+        .pipe(gulp.dest('./dist/js/'))
+        .pipe(browserSync.stream());
 });
 
-gulp.task('html', function() {
-    gulp.src('src/index.html')
-        .pipe(gulp.dest('dist/'))
-        .pipe(connect.reload());
-});
-
-gulp.task('bower-files', function(){
-    var fs = require('fs');
-    bowerDir = 'bower_components';
-    if (fs.existsSync(bowerDir)) {
-      return gulp.src(mainBowerFiles())
-      .pipe(concat('libs.js'))
-      .pipe(gulp.dest('dist/js/'));
-    }
-});
-
-gulp.task('watch', function() {
-    gulp.watch('src/js/*.js', ['js']);
-    gulp.watch('src/scss/*.scss', ['scss']);
-    gulp.watch('src/index.html', ['html']);
-});
-
-gulp.task('server', function() {
-    gulp.start('bower-files');
-    gulp.start('js');
-    gulp.start('scss');
-    gulp.start('html');
-    connect.server({
-       root: 'dist',
-       livereload: true
+gulp.task('serve', ['css', 'js'], function () {
+    browserSync.init({
+        server: './dist/'
     });
-    gulp.start('watch');
+
+    gulp.watch('./src/css/**/*.scss', ['css']);
+    gulp.watch('./src/js/**/*.js', ['js']);
+    gulp.watch('./dist/**/*.html').on('change', browserSync.reload);
 });
 
-gulp.task('default', ['bower-files', 'js', 'scss', 'html']);
+gulp.task('default', ['css', 'js']);

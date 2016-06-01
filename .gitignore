@@ -1,5 +1,3 @@
 node_modules
-bower_components
-/dist
-/src/js/*
-/src/scss/*
+dist/css
+dist/js
