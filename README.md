@@ -42,4 +42,4 @@ $('<h1>').text('Yay!').appendTo('body');
 
 Production
 ----------
-By default, Browserify will add source maps to the output. To disable this run `gulp --production`.
+By default, Browserify will add source maps to the output and Sass's output style will be the default nested one. To disable source maps and enable CSS compression run `gulp --production`.

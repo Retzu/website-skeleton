@@ -8,7 +8,9 @@ var source = require('vinyl-source-stream');
 
 gulp.task('css', function () {
     return gulp.src('./src/css/**/*.scss')
-        .pipe(sass().on('error', sass.logError))
+        .pipe(sass({
+            outputStyle: gutil.env.production ? 'compressed' : 'nested'
+        }).on('error', sass.logError))
         .pipe(gulp.dest('./dist/css/'))
         .pipe(browserSync.stream());
 });
