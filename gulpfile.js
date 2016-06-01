@@ -8,13 +8,13 @@ var source = require('vinyl-source-stream');
 
 gulp.task('css', function () {
     return gulp.src('./src/css/**/*.scss')
-        .pipe(sass().on('error', gutil.log))
+        .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./dist/css/'))
         .pipe(browserSync.stream());
 });
 
 gulp.task('js', function () {
-    return browserify('./src/js/main.js', {debug: true})
+    return browserify('./src/js/main.js', {debug: !gutil.env.production})
         .transform('babelify', {
             presets: ['es2015'],
             sourceRoot: './src/js/'

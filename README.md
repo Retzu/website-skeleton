@@ -40,3 +40,6 @@ import $ from "jquery";
 $('<h1>').text('Yay!').appendTo('body');
 ```
 
+Production
+----------
+By default, Browserify will add source maps to the output. To disable this run `gulp --production`.
