@@ -1,10 +1,11 @@
-var babelify = require('babelify');
-var browserify = require('browserify');
+var babel = require('rollup-plugin-babel');
+var rollup = require('rollup').rollup;
+var commonJs = require('rollup-plugin-commonjs');
+var nodeResolve = require('rollup-plugin-node-resolve');
 var browserSync = require('browser-sync');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var sass = require('gulp-sass');
-var source = require('vinyl-source-stream');
 
 gulp.task('css', function () {
     return gulp.src('./src/css/**/*.scss')
@@ -16,16 +17,24 @@ gulp.task('css', function () {
 });
 
 gulp.task('js', function () {
-    return browserify('./src/js/main.js', {debug: !gutil.env.production})
-        .transform('babelify', {
-            presets: ['es2015'],
-            sourceRoot: './src/js/'
-        })
-        .bundle()
-        .on('error', gutil.log)
-        .pipe(source('main.js'))
-        .pipe(gulp.dest('./dist/js/'))
-        .pipe(browserSync.stream());
+    return rollup({
+        entry: './src/js/main.js',
+        plugins: [
+            // nodeResolve({ jsnext: true }),
+            // commonJs(),
+            babel({
+                exclude: 'node_modules/**'
+            })
+        ]
+    }).then(function (bundle) {
+        return bundle.write({
+            format: 'iife',
+            dest: './dist/js/main.js',
+            sourceMap: !gutil.env.production
+        }).then(function () {
+            browserSync.reload();
+        });
+    });
 });
 
 gulp.task('serve', ['css', 'js'], function () {
