@@ -1,5 +1,6 @@
 var babel = require('rollup-plugin-babel');
 var rollup = require('rollup').rollup;
+var uglify = require('rollup-plugin-uglify')
 var commonJs = require('rollup-plugin-commonjs');
 var nodeResolve = require('rollup-plugin-node-resolve');
 var browserSync = require('browser-sync');
@@ -18,18 +19,19 @@ gulp.task('css', function () {
 
 gulp.task('js', function () {
     return rollup({
-        entry: './src/js/main.js',
+        entry: 'src/js/main.js',
         plugins: [
-            // nodeResolve({ jsnext: true }),
-            // commonJs(),
+            nodeResolve({ jsnext: true }),
+            commonJs(),
             babel({
                 exclude: 'node_modules/**'
-            })
+            }),
+            uglify()
         ]
     }).then(function (bundle) {
         return bundle.write({
             format: 'iife',
-            dest: './dist/js/main.js',
+            dest: 'dist/js/main.js',
             sourceMap: !gutil.env.production
         }).then(function () {
             browserSync.reload();
@@ -39,7 +41,8 @@ gulp.task('js', function () {
 
 gulp.task('serve', ['css', 'js'], function () {
     browserSync.init({
-        server: './dist/'
+        server: './dist/',
+        open: false
     });
 
     gulp.watch('./src/css/**/*.scss', ['css']);
