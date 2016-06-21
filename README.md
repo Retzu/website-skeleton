@@ -12,7 +12,9 @@ Key features:
 Setup
 -----
 1. Clone the repo
-2. `npm install` (and maybe `npm update` if you run into problems)
+2. Change details (name, version) in `package.json`.
+3. Remove the git origin: `git remote remove origin`
+4. `npm install` (and maybe `npm update` if you run into problems)
 
 Now you can run `gulp serve`, edit your files and watch browser-sync do its magic.
 
