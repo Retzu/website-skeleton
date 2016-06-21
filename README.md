@@ -45,3 +45,8 @@ $('<h1>').text('Yay!').appendTo('body');
 Production
 ----------
 By default, Browserify will add source maps to the output and Sass's output style will be the default nested one. To disable source maps and enable CSS compression run `gulp --production`.
+
+
+rollup.js
+---------
+There's a WIP version of this repo which uses [rollup.js](http://rollupjs.org) instead of Browserify. You can find it in its [own branch](tree/rollupjs).
