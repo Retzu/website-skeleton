@@ -49,4 +49,4 @@ By default, Browserify will add source maps to the output and Sass's output styl
 
 rollup.js
 ---------
-There's a WIP version of this repo which uses [rollup.js](http://rollupjs.org) instead of Browserify. You can find it in its [own branch](/Retzudo/website-skeleton/tree/rollupjs).
+There's a WIP version of this repo which uses [rollup.js](http://rollupjs.org) instead of Browserify. You can find it in its [own branch](https://github.com/Retzudo/website-skeleton/tree/rollupjs).
