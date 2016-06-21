@@ -30,7 +30,8 @@ gulp.task('js', function () {
 
 gulp.task('serve', ['css', 'js'], function () {
     browserSync.init({
-        server: './dist/'
+        server: './dist/',
+        open: false
     });
 
     gulp.watch('./src/css/**/*.scss', ['css']);
