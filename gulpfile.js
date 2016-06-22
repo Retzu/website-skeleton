@@ -7,6 +7,7 @@ var browserSync = require('browser-sync');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var sass = require('gulp-sass');
+var replace = require('rollup-plugin-replace')
 
 gulp.task('css', function () {
     return gulp.src('./src/css/**/*.scss')
@@ -21,12 +22,15 @@ gulp.task('js', function () {
     return rollup({
         entry: 'src/js/main.js',
         plugins: [
+            replace({
+                'process.env.NODE_ENV': JSON.stringify(gutil.env.production ? 'production' : 'development')
+            }),
             nodeResolve({ jsnext: true }),
             commonJs(),
             babel({
                 exclude: 'node_modules/**'
-            }),
-            uglify()
+            })
+            // ,uglify()
         ]
     }).then(function (bundle) {
         return bundle.write({
